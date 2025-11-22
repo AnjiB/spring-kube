@@ -1,0 +1,63 @@
+{
+	"info": {
+		"_postman_id": "spring-hello-world-api",
+		"name": "Spring Hello World API",
+		"description": "Collection for Spring Hello World API endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /hi",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/hi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hi"
+					]
+				},
+				"description": "Returns a simple greeting 'Hello'"
+			},
+			"response": []
+		},
+		{
+			"name": "POST /hi",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Anji\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/hi",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"hi"
+					]
+				},
+				"description": "Accepts a JSON body with a name and returns a personalized greeting"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
+

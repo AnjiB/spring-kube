@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anji-spring-boot-deployment
+  labels:
+    app: anji-spring-boot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: anji-spring-boot
+  template:
+    metadata:
+      labels:
+        app: anji-spring-boot
+    spec:
+      containers:
+      - name: anji-spring-boot
+        image: anji-spring-hello-world:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+
