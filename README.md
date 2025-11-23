@@ -99,6 +99,7 @@ Detailed documentation is available in the `docs/` folder:
 - **[Port Forwarding Guide](docs/PORT-FORWARDING-GUIDE.md)** - Accessing services via port forwarding (recommended for development)
 - **[kubectl Proxy Guide](docs/KUBECTL-PROXY-GUIDE.md)** - Accessing services via kubectl proxy
 - **[Kubernetes DNS Guide](docs/KUBERNETES-DNS-GUIDE.md)** - Understanding service names and DNS resolution
+- **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
 
 ### Database
 - **[MySQL Sidecar Pattern](docs/SIDECAR-MYSQL-GUIDE.md)** - Deploying MySQL as sidecar container
@@ -119,14 +120,18 @@ spring-hello-world/
 │   ├── KUBERNETES-DNS-GUIDE.md
 │   ├── LOCAL-TESTING.md
 │   ├── MULTI-CLUSTER-GUIDE.md
+│   ├── PORT-FORWARDING-GUIDE.md
 │   ├── SIDECAR-MYSQL-GUIDE.md
-│   └── SWAGGER-GUIDE.md
+│   ├── SWAGGER-GUIDE.md
+│   └── TROUBLESHOOTING.md
 ├── kube/                          # Kubernetes deployment files
+│   ├── deployment.yml
+│   ├── multiple-services-example.yml
+│   ├── mysql-service.yml
 │   ├── spring-boot-deployment.yml
 │   ├── spring-boot-service.yml
 │   ├── spring-boot-with-mysql-sidecar.yml
-│   ├── spring-boot-with-shared-mysql.yml
-│   └── mysql-service.yml
+│   └── spring-boot-with-shared-mysql.yml
 ├── src/
 │   └── main/
 │       ├── java/
@@ -144,6 +149,8 @@ spring-hello-world/
 │       │       │   ├── BookRequest.java
 │       │       │   └── BookResponse.java
 │       │       └── config/
+│       │           ├── CorsConfig.java
+│       │           ├── CorsFilterConfig.java
 │       │           └── OpenApiConfig.java
 │       └── resources/
 │           └── application.properties
