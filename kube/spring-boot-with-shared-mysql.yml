@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-hello-world
+  labels:
+    app: spring-hello-world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: spring-hello-world
+  template:
+    metadata:
+      labels:
+        app: spring-hello-world
+    spec:
+      containers:
+      - name: spring-hello-world
+        imagePullPolicy: Never
+        image: anji-spring-hello-world:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        # Connect to shared MySQL service (not localhost!)
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service:3306/springdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "rootpassword"
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          failureThreshold: 30
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-nodeport
+  labels:
+    app: spring-hello-world
+spec:
+  type: NodePort
+  selector:
+    app: spring-hello-world
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 30080
+    name: http
+

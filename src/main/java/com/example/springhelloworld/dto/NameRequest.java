@@ -1,5 +1,8 @@
 package com.example.springhelloworld.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Request object for personalized greeting")
 public class NameRequest {
     private String name;
 
@@ -10,6 +13,7 @@ public class NameRequest {
         this.name = name;
     }
 
+    @Schema(description = "Name for personalized greeting", example = "Anji", requiredMode = Schema.RequiredMode.REQUIRED)
     public String getName() {
         return name;
     }
