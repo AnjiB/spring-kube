@@ -86,6 +86,9 @@ This will create a JAR file in the `target` directory: `spring-hello-world-1.0.0
 
 Detailed documentation is available in the `docs/` folder:
 
+### Quick Reference
+- **[Commands Reference](docs/COMMANDS.md)** - Complete command reference for Docker, Minikube, Kind, kubectl, and Kubeshark
+
 ### Getting Started
 - **[Local Testing Guide](docs/LOCAL-TESTING.md)** - Complete guide for local development and testing
 - **[Book API Guide](docs/BOOK-API-GUIDE.md)** - Detailed Book CRUD API documentation with examples
@@ -94,6 +97,7 @@ Detailed documentation is available in the `docs/` folder:
 - **[Docker Compose](docker-compose.yml)** - Local development setup with MySQL and Spring Boot
 
 ### Kubernetes Deployment
+- **[Kind Multi-Cluster Deployment](docs/KIND-MULTI-CLUSTER-DEPLOYMENT.md)** - Deploying to multiple Kind clusters (dev/test) - **Recommended for Practice**
 - **[Minikube Deployment](docs/MULTI-CLUSTER-GUIDE.md)** - Deploying to Minikube with multiple clusters
 - **[NodePort Service Deployment](kube/spring-boot-service.yml)** - Using NodePort service for external access
 - **[Port Forwarding Guide](docs/PORT-FORWARDING-GUIDE.md)** - Accessing services via port forwarding (recommended for development)
@@ -114,6 +118,7 @@ Detailed documentation is available in the `docs/` folder:
 ```
 spring-hello-world/
 ├── docs/                          # Documentation guides
+│   ├── COMMANDS.md                # Complete command reference
 │   ├── BOOK-API-GUIDE.md
 │   ├── DATABASE-CONSISTENCY-GUIDE.md
 │   ├── KUBECTL-PROXY-GUIDE.md
@@ -157,6 +162,8 @@ spring-hello-world/
 ├── docker-compose.yml             # Local development setup
 ├── Dockerfile                     # Docker image build
 ├── pom.xml                        # Maven dependencies
+├── deploy-to-clusters.sh          # Script to deploy to dev/test clusters
+├── get-cluster-urls.sh            # Script to get NodePort access URLs
 ├── Spring-Hello-World.postman_collection.json
 └── README.md                      # This file
 ```
