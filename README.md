@@ -16,7 +16,8 @@ A simple Spring Boot REST API application with Book CRUD operations and MySQL da
 - Maven 3.6+ (or use Maven wrapper)
 - Docker (for containerized deployment and local MySQL)
 - Docker Compose (optional, for easier local MySQL setup)
-- Minikube and kubectl (for Kubernetes deployment)
+- kubectl (for Kubernetes deployment)
+- Minikube or Kind (for local Kubernetes clusters)
 
 ## Quick Start
 
@@ -131,12 +132,17 @@ spring-hello-world/
 │   └── TROUBLESHOOTING.md
 ├── kube/                          # Kubernetes deployment files
 │   ├── deployment.yml
+│   ├── kind-dev-cluster-config.yml
+│   ├── kind-test-cluster-config.yml
 │   ├── multiple-services-example.yml
 │   ├── mysql-service.yml
 │   ├── spring-boot-deployment.yml
 │   ├── spring-boot-service.yml
 │   ├── spring-boot-with-mysql-sidecar.yml
 │   └── spring-boot-with-shared-mysql.yml
+├── scripts/                       # Deployment scripts
+│   ├── deploy-to-clusters.sh
+│   └── get-cluster-urls.sh
 ├── src/
 │   └── main/
 │       ├── java/
@@ -162,8 +168,6 @@ spring-hello-world/
 ├── docker-compose.yml             # Local development setup
 ├── Dockerfile                     # Docker image build
 ├── pom.xml                        # Maven dependencies
-├── deploy-to-clusters.sh          # Script to deploy to dev/test clusters
-├── get-cluster-urls.sh            # Script to get NodePort access URLs
 ├── Spring-Hello-World.postman_collection.json
 └── README.md                      # This file
 ```
@@ -175,79 +179,13 @@ spring-hello-world/
 - Maven
 - MySQL 8.0
 - Docker & Docker Compose
-- Kubernetes (Minikube)
+- Kubernetes (Minikube, Kind)
+- kubectl
 - SpringDoc OpenAPI (Swagger)
 
 ## Quick Reference
 
-### Docker Commands
-```bash
-# Build image
-docker build -t anji-spring-hello-world:latest .
-
-# Run container
-docker run -p 8080:8080 anji-spring-hello-world:latest
-
-# Docker Compose
-docker compose up -d              # Start all services
-docker compose logs -f            # View logs
-docker compose down               # Stop all services
-```
-
-### Kubernetes Commands
-```bash
-# Deploy to Minikube
-minikube image load anji-spring-hello-world:latest
-kubectl apply -f kube/spring-boot-service.yml
-
-# Check status
-kubectl get pods
-kubectl get services
-
-# Access via kubectl proxy
-kubectl proxy
-curl http://localhost:8001/api/v1/namespaces/default/services/spring-nodeport/proxy/hi
-
-# List/remove images in minikube
-minikube image ls
-minikube image rm <imageName>
-```
-
-### How to Update Image with New Changes
-
-When you make code changes and need to update the deployed application:
-
-```bash
-# 1. Rebuild the application
-mvn clean package
-
-# 2. Rebuild Docker image
-docker build -t anji-spring-hello-world:latest .
-
-# 3. Load new image into minikube
-minikube image load anji-spring-hello-world:latest
-
-# 4. Restart deployment to use new image
-kubectl rollout restart deployment/spring-hello-world
-
-# 5. Check rollout status
-kubectl rollout status deployment/spring-hello-world
-
-# 6. Verify pods are running with new image
-kubectl get pods -l app=spring-hello-world
-
-# 7. View logs to verify new changes
-kubectl logs -f deployment/spring-hello-world
-```
-
-**Alternative: Force delete and recreate pods (if rollout restart doesn't work):**
-```bash
-# Delete existing pods (deployment will recreate them with new image)
-kubectl delete pods -l app=spring-hello-world
-
-# Watch pods being recreated
-kubectl get pods -l app=spring-hello-world -w
-```
+For all commands (Docker, Minikube, Kind, kubectl, Kubeshark), see **[Commands Reference](docs/COMMANDS.md)**.
 
 ## Contributing
 
