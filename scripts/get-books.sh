@@ -1,0 +1,1 @@
+for i in {1..50}; do echo "Request $i/50"; curl -s http://127.0.0.1:55104/api/books; printf "\n---\n"; sleep 1; done

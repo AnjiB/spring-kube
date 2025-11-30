@@ -18,7 +18,7 @@ spec:
       containers:
       - name: spring-hello-world
         imagePullPolicy: Never
-        image: anji-spring-hello-world:latest
+        image: anji-spring-hello-world:anjibabu
         ports:
         - containerPort: 8080
           name: http
